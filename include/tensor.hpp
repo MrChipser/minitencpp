@@ -10,21 +10,26 @@ using value_type = float;         // default tensor data type
 
 class Tensor {
     private:
+        //Tensor caracteristics
         std::vector<index_type> shape_;
         std::vector<value_type> data_;
         std::vector<size_type> strides_;
 
+        //compute the strides of the tensor based on its shape
         void compute_strides();
+        //compute the flat index of the wanted data point
+        size_type flat_index(const std::vector<index_type>& indices) const;
     
     public:
+        //constructors, initializer_list allows to create a tensor with a list of dimensions, e.g. Tensor({2, 3, 4})
         Tensor(const std::vector<index_type>& shape);
         Tensor(std::initializer_list<index_type> shape); //Tensor({1,2})
 
-
-
+        //overloaded operator() to access tensor elements using a vector of indices
         value_type& operator()(const std::vector<index_type>& indices);
-        const value_type operator()(const std::vector<index_type>& indices) const;
+        const value_type& operator()(const std::vector<index_type>& indices) const;
 
+        //getters for the tensor's characteristics
         const std::vector<value_type>& data() const;
         const std::vector<index_type>& shape() const;
         const std::vector<size_type>& strides() const;
