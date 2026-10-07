@@ -1,11 +1,11 @@
 #include "tensor.hpp"
-
 #include <limits>
 
 //helper function to compute the total number of elements in a tensor given its shape
 //also handles overflow and negative dimension checks
 size_type element_count(const std::vector<index_type>& shape) {
     size_type count = 1;
+    const size_type max_elements = std::vector<value_type>().max_size();
 
     for (index_type dimension : shape) {
         if (dimension < 0) {
@@ -13,7 +13,9 @@ size_type element_count(const std::vector<index_type>& shape) {
         }
 
         const auto dimension_size = static_cast<size_type>(dimension);
-        if (dimension_size != 0 && count > std::numeric_limits<size_type>::max() / dimension_size) {
+        if (dimension_size != 0 and
+            (count > std::numeric_limits<size_type>::max() / dimension_size or
+             count > max_elements / dimension_size)) {
             throw std::overflow_error("Tensor is too large");
         }
 
@@ -67,5 +69,17 @@ const value_type& Tensor::operator()(const std::vector<index_type>& indices) con
         throw std::invalid_argument("Number of indices must match tensor dimensions");
     }
     return  data_[flat_index(indices)];
+}
+
+const std::vector<value_type>& Tensor::data() const {
+    return data_;
+}
+
+const std::vector<index_type>& Tensor::shape() const {
+    return shape_;
+}
+
+const std::vector<size_type>& Tensor::strides() const {
+    return strides_;
 }
 
