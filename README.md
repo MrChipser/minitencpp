@@ -7,7 +7,7 @@ A small C++ tensor library currently under development.
 - Tensor construction from a shape
 - Row-major strides
 - Mutable and const element access with `operator()`
-- Shape, data, and stride getters
+- Shape, data, stride, size, size(axis) and rank getters
 - Negative-dimension and size overflow validation
 - Bounds and rank checking
 - GoogleTest-based unit tests
