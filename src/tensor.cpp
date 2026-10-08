@@ -83,3 +83,22 @@ const std::vector<size_type>& Tensor::strides() const {
     return strides_;
 }
 
+size_type Tensor::numel() const {
+    return data_.size();
+}
+
+size_type Tensor::size() const {
+    return data_.size();
+}
+
+size_type Tensor::rank() const {
+    return shape_.size();
+}
+
+size_type Tensor::size(size_type axis) const {
+    if (axis >= shape_.size()) {
+        throw std::out_of_range("Tensor axis is out of bounds");
+    }
+
+    return static_cast<size_type>(shape_[axis]);
+}

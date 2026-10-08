@@ -33,4 +33,13 @@ class Tensor {
         const std::vector<value_type>& data() const;
         const std::vector<index_type>& shape() const;
         const std::vector<size_type>& strides() const;
+
+        // total number of elements
+        size_type numel() const;
+        //alias for numel()
+        size_type size() const;
+        // number of dimensions
+        size_type rank() const;
+        // size of one dimension
+        size_type size(size_type axis) const;
 };
