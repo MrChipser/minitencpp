@@ -47,6 +47,10 @@ class Tensor {
 
         //fills tensor with a given value
         void fill(value_type val);
+        //Tensor * scalar
+        Tensor operator*(value_type scalar) const;
+        //Tensor *= scalar
+        Tensor& operator*=(value_type scalar);
 };
 
 } //namespace miniten

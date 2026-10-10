@@ -55,3 +55,21 @@ TEST(TensorTest, FillCorrect) {
     EXPECT_FLOAT_EQ(tensor({0, 0}), 4.5f);
     EXPECT_FLOAT_EQ(tensor({1, 2}), 4.5f);
 }
+
+TEST(TensorTest, ScalarMultiplicationNew) {
+    Tensor tensor({5,6,7});
+    tensor.fill(1.0f);
+    tensor = tensor * 5.6f;
+
+    EXPECT_FLOAT_EQ(tensor({0, 0, 0}), 5.6f);
+    EXPECT_FLOAT_EQ(tensor({4, 5, 6}), 5.6f);
+}
+
+TEST(TensorTest, ScalarMultiplicationCurrent) {
+    Tensor tensor({5,6,7});
+    tensor.fill(2.0f);
+    tensor *= 5.0f;
+
+    EXPECT_FLOAT_EQ(tensor({0, 0, 0}), 10.0f);
+    EXPECT_FLOAT_EQ(tensor({4, 5, 6}), 10.0f);
+}

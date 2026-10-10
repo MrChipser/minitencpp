@@ -111,4 +111,23 @@ void Tensor::fill(value_type val) {
     }
 }
 
+Tensor Tensor::operator*(value_type scalar) const {
+    Tensor new_tensor(shape_);
+
+    for(size_type i = 0; i < data_.size(); i++) {
+        new_tensor.data_[i] = data_[i] * scalar;
+    }
+
+    return new_tensor;
+}
+
+Tensor& Tensor::operator*=(value_type scalar) {
+    for(size_type i = 0; i < data_.size(); i++) {
+        data_[i] = data_[i] * scalar;
+    }
+    return *this;
+}
+
+
+
 } //namsepace miniten
