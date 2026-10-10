@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <vector>
 
+namespace miniten {
+
 using index_type = std::int64_t;  // dimensions and user-facing indices
 using size_type = std::size_t;   // allocation sizes and element counts
 using value_type = float;         // default tensor data type
@@ -42,4 +44,9 @@ class Tensor {
         size_type rank() const;
         // size of one dimension
         size_type size(size_type axis) const;
+
+        //fills tensor with a given value
+        void fill(value_type val);
 };
+
+} //namespace miniten

@@ -1,6 +1,8 @@
 #include "tensor.hpp"
 #include <limits>
 
+namespace miniten {
+
 //helper function to compute the total number of elements in a tensor given its shape
 //also handles overflow and negative dimension checks
 size_type element_count(const std::vector<index_type>& shape) {
@@ -102,3 +104,11 @@ size_type Tensor::size(size_type axis) const {
 
     return static_cast<size_type>(shape_[axis]);
 }
+
+void Tensor::fill(value_type val) {
+    for(size_type i = 0; i < data_.size(); i++) {
+        data_[i] = val;
+    }
+}
+
+} //namsepace miniten

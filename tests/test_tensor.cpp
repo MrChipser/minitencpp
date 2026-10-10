@@ -2,10 +2,12 @@
 #include <gtest/gtest.h>
 #include <limits>
 
+using miniten::Tensor;
+
 TEST(TensorTest, ShapeAndStridesCorrect) {
     Tensor tensor({4,5,6,7});
-    EXPECT_EQ(tensor.shape(), (std::vector<index_type>{4, 5, 6, 7}));
-    EXPECT_EQ(tensor.strides(), (std::vector<size_type>{210, 42, 7, 1}));
+    EXPECT_EQ(tensor.shape(), (std::vector<miniten::index_type>{4, 5, 6, 7}));
+    EXPECT_EQ(tensor.strides(), (std::vector<miniten::size_type>{210, 42, 7, 1}));
     EXPECT_EQ(tensor.data().size(), 840);
 }
 
@@ -43,5 +45,13 @@ TEST(TensorTest, RejectsNegativeDimensions) {
 }
 
 TEST(TensorTest, RejectsShapeTooLarge) {
-    EXPECT_THROW(Tensor({std::numeric_limits<index_type>::max(), 2}), std::overflow_error);
+    EXPECT_THROW(Tensor({std::numeric_limits<miniten::index_type>::max(), 2}), std::overflow_error);
+}
+
+TEST(TensorTest, FillCorrect) {
+    Tensor tensor({2,3});
+    tensor.fill(4.5f);
+
+    EXPECT_FLOAT_EQ(tensor({0, 0}), 4.5f);
+    EXPECT_FLOAT_EQ(tensor({1, 2}), 4.5f);
 }
